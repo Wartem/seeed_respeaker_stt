@@ -10,7 +10,7 @@
 
 ---
 
-# Seeed ReSpeaker Speech-to-Text on Raspberry Pi
+# Seeed ReSpeaker Speech-to-Text on Raspberry Pi (5 and Others)
 
 This repository provides a implementation for setting up and using Seeed's ReSpeaker (tested on 2-Mic) Pi HAT for a speech-to-text system on a Raspberry Pi 5. The project is tested on an updated Raspberry Pi 5 with Linux kernel 6.6.51+rpt-rpi-2712 and features Vosk's offline speech recognition. This project can be used as a starting point for further development with your Seeed voice card.
 
@@ -46,7 +46,7 @@ This project configures and manages a ReSpeaker 2-Mics Pi HAT on a Raspberry Pi 
 ## Requirements
 
 - **Hardware**:
-  - Raspberry Pi 5 (tested on this model)
+  - Raspberry Pi 5 (tested on this model but likely compatible with various Raspberry Pi models).
   - Seeed ReSpeaker 2-Mics Pi HAT
   - SSD recommended for faster performance
 
