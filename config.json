@@ -1,0 +1,8 @@
+{
+    "MODEL_PATH": "./vosk-models/vosk-model-en-us-0.22-lgraph",
+    "SAMPLE_RATE": 48000,
+    "CHANNELS": 2,
+    "CHUNK_SIZE": 8000,
+    "VAD_THRESHOLD": 0.001,
+    "DEBUG_MODE": false
+}

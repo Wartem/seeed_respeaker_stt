@@ -1,0 +1,19 @@
+# Basic audio processing
+numpy
+sounddevice
+PyAudio
+
+# Lightweight alternatives for speech recognition
+vosk
+
+# Async support
+asyncio
+
+# Audio processing
+librosa
+
+# Download files from the web
+wget
+
+# System and process utilities
+psutil
