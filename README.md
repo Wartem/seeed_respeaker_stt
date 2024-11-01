@@ -51,13 +51,29 @@ This project configures and manages a ReSpeaker 2-Mics Pi HAT on a Raspberry Pi 
   - SSD recommended for faster performance
 
 - **Software**:
-  - OS: Raspberry Pi OS Lite (64-bit)
-  - Voice card installed https://github.com/Wartem/seeed-voicecard
+  - Recommended OS: Raspberry Pi OS Lite (64-bit)
+  - Voice card installed [https://github.com/Wartem/seeed-voicecard](https://github.com/Wartem/seeed-voicecard) (detailed below)
   - Dependencies: Install via `requirements.txt` (detailed below)
 
-### Python Packages
+ **Install Seeed Voicecard Drivers**:
+   Visit the repository at [https://github.com/Wartem/seeed-voicecard](https://github.com/Wartem/seeed-voicecard)
+
+   This repository contains working drivers, including a custom installation method to ensure functionality. 
+   Official support ended years ago, so please follow the installation instructions in the README for a working setup process when using the latest kernels.
+  
+
+## Setup
+
+1. **Clone the Repository**:
+    ```bash
+    git clone https://github.com/Wartem/seeed_respeaker_stt.git
+    cd seeed_respeaker_stt
+    ```
+
+2. **Python Packages**:
 
 Install dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -85,16 +101,6 @@ wget
 psutil
 ```
 
-## Setup
-
-1. **Install Dependencies**:
-    ```bash
-    pip install pyaudio numpy vosk wget psutil
-    ```
-
-2. **Configure Audio Device**:
-   Ensure the ReSpeaker 2-Mics Pi HAT is connected and identified as `hw:0,0`.
-
 3. **Model Setup**:
 
    The Vosk ASR model is downloaded automatically by the `setup_vosk_model` function, which verifies the model path specified in `config.json` under `"MODEL_PATH"`. This path points to a local directory for storing the ASR model files. If the model is not already downloaded, the setup function will download it automatically.
@@ -114,6 +120,41 @@ psutil
         ```
 
    4. **Save the Changes**: After updating the path in `config.json`, save the file. If the model is not yet downloaded, the `setup_vosk_model` function will handle the download when you start the application.
+  
+   5. **Configure Audio Device**:
+
+To ensure proper functionality of the Seeed ReSpeaker 2-Mics Pi HAT, follow these steps to configure and test the audio device:
+
+a) **Verify Device Recognition**:
+   Run the following command to list all audio devices:
+   ```bash
+   arecord -l
+   ```
+   Look for a device named "seeed2micvoicec" or "ac108". This confirms that your Raspberry Pi recognizes the ReSpeaker 2-Mics Pi HAT.
+
+b) **Test Audio Recording**:
+   Record a 5-second audio clip using the following command:
+   ```bash
+   arecord -D plughw:0,0 -f S16_LE -r 48000 -c 2 -d 5 test.wav
+   ```
+   This command uses:
+   - `-D plughw:0,0`: Specifies the ALSA device (usually `hw:0,0` for the ReSpeaker)
+   - `-f S16_LE`: 16-bit little-endian format
+   - `-r 48000`: 48kHz sample rate (optimal for this device)
+   - `-c 2`: 2 channels (stereo)
+   - `-d 5`: Duration of 5 seconds
+
+c) **Playback the Recording**:
+   To verify the recording quality, play back the audio file:
+   ```bash
+   aplay test.wav
+   ```
+
+If you can hear clear audio playback, your ReSpeaker 2-Mics Pi HAT is correctly configured and functioning. If you encounter issues, ensure the HAT is properly connected and recognized by your Raspberry Pi system.
+
+**Note**: If the device is not recognized as `hw:0,0`, adjust the `-D` parameter in the `arecord` command to match the correct device number shown in the `arecord -l` output.
+
+For more advanced configuration options or troubleshooting, refer to the [Seeed ReSpeaker 2-Mics Pi HAT documentation](https://wiki.seeedstudio.com/ReSpeaker_2_Mics_Pi_HAT/).
 
 ## Configuration
 
@@ -131,7 +172,7 @@ The default configuration file is `config.json`. On first run, the program creat
 
 1. **Start the Program**:
    ```bash
-   python main.py
+   python seeed_respeaker_stt.py
    ```
 
 2. **Real-Time Diagnostics**:
